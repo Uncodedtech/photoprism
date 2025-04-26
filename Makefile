@@ -7,19 +7,19 @@ export GO111MODULE=on
 
 -include .semver
 -include .env
-export SEMVER_MAJOR
-export SEMVER_MINOR
-export SEMVER_PATCH
 
 # Binary file names.
 BINARY_NAME=photoprism
 GOIMPORTS=goimports
 
-# Build version.
-SEMVER_MAJOR ?= 0
+# Build version string.
+SEMVER_MAJOR ?= 1
+export SEMVER_MAJOR
 SEMVER_MINOR ?= $(shell date -u +%y%m)
+export SEMVER_MINOR
 SEMVER_PATCH ?= $(shell date -u +%d)
 SEMVER_VERSION ?= $(SEMVER_MAJOR).$(SEMVER_MINOR).$(SEMVER_PATCH)
+export SEMVER_VERSION
 
 # Build parameters.
 BUILD_PATH ?= $(shell realpath "./build")
@@ -27,8 +27,10 @@ BUILD_DATE ?= $(shell date -u +%y%m%d)
 REPORT_DATE ?= $(shell date -u +%Y-%m-%d)
 BUILD_VERSION ?= $(shell git describe --always)
 BUILD_TAG ?= $(BUILD_DATE)-$(BUILD_VERSION)
+export BUILD_TAG
 BUILD_OS ?= $(shell uname -s)
-BUILD_ARCH ?= $(shell scripts/dist/arch.sh)
+BUILD_ARCH ?= $(shell ./scripts/dist/arch.sh)
+export BUILD_ARCH
 JS_BUILD_PATH ?= $(shell realpath "./assets/static/build")
 TF_VERSION ?= 2.18.0
 
